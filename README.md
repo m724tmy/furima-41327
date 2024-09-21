@@ -22,6 +22,7 @@
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
+| user            | references | null: false, foreign_key: true |
 | name            | string     | null: false                    |
 | description     | text       | null: false                    |
 | category_id     | integer    | null: false                    |
@@ -30,7 +31,6 @@
 | prefecture_id   | integer    | null: false                    |
 | shipping_day_id | integer    | null: false                    |
 | price           | integer    | null: false                    |
-| user_id         | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -39,7 +39,7 @@
 - belongs_to :category
 - belongs_to :status
 - belongs_to :shipping_fee
-- belongs_to :prefecture_id
+- belongs_to :prefecture
 - belongs_to :shipping_day
 
 ## Buys テーブル
@@ -60,14 +60,14 @@
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
 | post_code      | string     | null: false                    |
-| prefecture_id  | string     | null: false                    |
+| prefecture_id  | integer    | null: false                    |
 | municipality   | string     | null: false                    |
 | street_address | string     | null: false                    |
 | building_name  | string     |                                |
-| phone_number   | string     |                                |
+| phone_number   | string     | null: false                    |
 | buy            | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :buy
-- belongs_to :prefecture_id
+- belongs_to :prefecture
