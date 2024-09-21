@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :buy
+- has_many :buys
 
 ## Items テーブル
 
@@ -24,17 +24,23 @@
 | --------------- | ---------- | ------------------------------ |
 | name            | string     | null: false                    |
 | description     | text       | null: false                    |
-| category        | integer    | null: false                    |
-| status          | integer    | null: false                    |
-| shipped_from    | integer    | null: false                    |
+| category_id     | integer    | null: false                    |
+| status_id       | integer    | null: false                    |
 | shipping_fee_id | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
+| shipping_day_id | integer    | null: false                    |
 | price           | integer    | null: false                    |
-| user            | references | null: false, foreign_key: true |
+| user_id         | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_many :buys
+- has_one :buy
+- belongs_to :category
+- belongs_to :status
+- belongs_to :shipping_fee
+- belongs_to :prefecture_id
+- belongs_to :shipping_day
 
 ## Buys テーブル
 
@@ -54,13 +60,14 @@
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
 | post_code      | string     | null: false                    |
-| prefecture     | string     | null: false                    |
+| prefecture_id  | string     | null: false                    |
 | municipality   | string     | null: false                    |
 | street_address | string     | null: false                    |
-| building_name  | string     | null: false                    |
-| hone_number    | string     |                                |
+| building_name  | string     |                                |
+| phone_number   | string     |                                |
 | buy            | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :buy
+- belongs_to :prefecture_id
