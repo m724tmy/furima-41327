@@ -2,7 +2,6 @@ class CreateItems < ActiveRecord::Migration[7.0]
   def change
     create_table :items do |t|
 
-    # ActiveHash_id??
       t.timestamps
       t.references :user,            null: false, foreign_key: true
       t.string     :name,            null: false
