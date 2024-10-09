@@ -9,7 +9,11 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.create(item_params)
-    redirect_to '/'
+    if @item.save
+      redirect_to roor_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
