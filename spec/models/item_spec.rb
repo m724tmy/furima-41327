@@ -12,6 +12,11 @@ RSpec.describe Item, type: :model do
     end
 
     context '商品出品ができない時' do
+      it 'userが紐づいていないと出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
       it 'nameが空では出品できない' do
         @item.name = ''
         @item.valid?
@@ -52,6 +57,12 @@ RSpec.describe Item, type: :model do
         @item.shipping_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Shipping day must be other than 1')
+      end
+
+      it 'priceが空では出品できない' do
+        @item.price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
       it 'priceが300未満では出品できない' do
