@@ -1,9 +1,6 @@
 class BuysController < ApplicationController
-  before_action :set_item, only: [:index, :new]
+  before_action :set_item, only: [:index, :create]
   def index
-  end
-
-  def new
     @buy_form = BuyForm.new
   end
 
@@ -13,7 +10,7 @@ class BuysController < ApplicationController
       @buy_form.save
       redirect_to root_path
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 

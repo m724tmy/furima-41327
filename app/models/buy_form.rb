@@ -1,7 +1,6 @@
 class BuyForm
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :post_code, :prefecture_id, :municipality, :street_address, :building_name, :phone_number,
-                :token
+  attr_accessor :user_id, :item_id, :post_code, :prefecture_id, :municipality, :street_address, :building_name, :phone_number
 
   # バリデーションの定義
   with_options presence: true do
@@ -11,13 +10,12 @@ class BuyForm
     validates :municipality, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'is invalid. Input full-width characters.' }
     validates :street_address
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Input only numbers.' }
-    validates :token
   end
   validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
 
   def save
     # 購入情報を保存
-    buy = Buy.create(user_id: user_id, item_id: item_id)
+    buy = Buy.create(user_id:, item_id:)
 
     # 発送先情報を保存
     ShippingAddress.create(
