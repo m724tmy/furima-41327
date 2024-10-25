@@ -1,4 +1,5 @@
 class BuysController < ApplicationController
+  before_action :set_item, only: [:index, :new]
   def index
   end
 
@@ -16,6 +17,8 @@ class BuysController < ApplicationController
     end
   end
 
+  private
+
   def buy_params
     params.require(:buy_form).permit(
       :post_code, :prefecture_id, :municipality,
@@ -24,5 +27,9 @@ class BuysController < ApplicationController
       user_id: current_user.id,
       item_id: params[:item_id]
     )
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
