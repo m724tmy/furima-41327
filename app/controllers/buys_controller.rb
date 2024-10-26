@@ -4,7 +4,7 @@ class BuysController < ApplicationController
   before_action :move_to_index, only: :index
   def index
     @buy_form = BuyForm.new
-    if @buy_form.present?
+    unless @buy_form.present?
       redirect_to root_path
     end
   end
