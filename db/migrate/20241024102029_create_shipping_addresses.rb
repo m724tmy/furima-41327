@@ -8,7 +8,7 @@ class CreateShippingAddresses < ActiveRecord::Migration[7.0]
       t.string     :municipality,   null: false
       t.string     :street_address, null: false
       t.string     :building_name
-      t.string     :phone_number,   null: false
+      t.string :phone_number, null: false, limit: 11
       t.references :buy,            null: false, foreign_key: true
     end
   end

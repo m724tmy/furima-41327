@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_24_102029) do
     t.string "municipality", null: false
     t.string "street_address", null: false
     t.string "building_name"
-    t.string "phone_number", null: false
+    t.string "phone_number", limit: 11, null: false
     t.bigint "buy_id", null: false
     t.index ["buy_id"], name: "index_shipping_addresses_on_buy_id"
   end
