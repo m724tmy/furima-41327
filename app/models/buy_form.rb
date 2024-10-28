@@ -11,7 +11,7 @@ class BuyForm
     validates :street_address
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Input only numbers.' }
   end
-  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :prefecture_id, numericality: { other_than: 1, message: "must be other than 1" }
 
   def save
     # 購入情報を保存
