@@ -2,7 +2,6 @@ class BuyForm
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :post_code, :prefecture_id, :municipality, :street_address, :building_name, :phone_number, :token
 
-  # バリデーションの定義
   with_options presence: true do
     validates :user_id
     validates :item_id
@@ -15,10 +14,8 @@ class BuyForm
   validates :prefecture_id, numericality: { other_than: 1, message: "must be other than 1" }
 
   def save
-    # 購入情報を保存
     buy = Buy.create(user_id:, item_id:)
 
-    # 発送先情報を保存
     ShippingAddress.create(
       post_code:, prefecture_id:, municipality:,
       street_address:, building_name:, phone_number:, buy_id: buy.id
