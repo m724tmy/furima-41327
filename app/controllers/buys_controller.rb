@@ -4,9 +4,10 @@ class BuysController < ApplicationController
   before_action :move_to_index, only: :index
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @buy_form = BuyForm.new
-    unless @buy_form.present?
+    if @item.present?
       redirect_to root_path
+    else
+      @buy_form = BuyForm.new
     end
   end
 
