@@ -13,6 +13,11 @@ RSpec.describe BuyForm, type: :model do
       it '全ての必須項目が正しく入力されていれば保存できる' do
         expect(@buy_form).to be_valid
       end
+
+      it '建物名が空でも保存できる' do
+        @buy_form.building_name = ''
+        expect(@buy_form).to be_valid
+      end
     end
 
     context '配送先情報が保存できない場合' do
