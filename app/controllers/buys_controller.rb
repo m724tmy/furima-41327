@@ -3,6 +3,7 @@ class BuysController < ApplicationController
   before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: :index
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @buy_form = BuyForm.new
     unless @buy_form.present?
       redirect_to root_path
@@ -12,6 +13,7 @@ class BuysController < ApplicationController
   def create
     @buy_form = BuyForm.new(buy_params)
     if @buy_form.valid?
+      pay_item
       @buy_form.save
       redirect_to root_path
     else
@@ -27,7 +29,8 @@ class BuysController < ApplicationController
       :street_address, :building_name, :phone_number
     ).merge(
       user_id: current_user.id,
-      item_id: params[:item_id]
+      item_id: params[:item_id],
+      token: params[:token]
     )
   end
 
@@ -40,5 +43,14 @@ class BuysController < ApplicationController
       redirect_to root_path
     end
   end  
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: buy_params[:token],
+      currency: 'jpy'
+    )
+  end
 
 end
